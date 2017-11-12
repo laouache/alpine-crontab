@@ -1,0 +1,8 @@
+version: '2'
+services:
+  alpine-crontab:
+    container_name: alpine-crontab
+    build: .
+    restart: unless-stopped
+    volumes:
+      - ./:/crontab/1/

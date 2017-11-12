@@ -1,0 +1,13 @@
+before_script:
+  - docker info
+  - docker login -u gitlab-ci-token -p "$CI_JOB_TOKEN" registry.gitlab.com
+  - echo $CI_REGISTRY_IMAGE
+alpine-docker-dind:
+  image: docker:git
+  services:
+    - docker:dind
+  stage: build
+  script:
+    - docker build -t "$CI_REGISTRY_IMAGE:alpine-docker-dind" -f Dockerfile.alpine .
+    - docker push "$CI_REGISTRY_IMAGE:alpine-docker-dind"
+
